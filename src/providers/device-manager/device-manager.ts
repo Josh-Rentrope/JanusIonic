@@ -87,7 +87,7 @@ export class DeviceManagerProvider {
 	
 	
     setInterval(() => { 
-       this.SendDataOverNetwork(); // Now the "this" still references the component
+       //this.SendDataOverNetwork(); // Now the "this" still references the component
     }, 10000);
   }
   UpdateSensors(){

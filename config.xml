@@ -3,7 +3,7 @@
     <name>Janus Android Sensor</name>
     <description>This is a generic Android Sensor configured to work with Janus</description>
     <author email="contact@infodao.com" href="http://www.infodao.com/">Infodao</author>
-    <content original-src="index.html" src="http://192.168.47.114:8100" />
+    <content src="index.html" />
     <access origin="*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
@@ -103,6 +103,6 @@
     <plugin name="cordova-plugin-dbmeter" spec="^2.1.0" />
     <plugin name="cordova-plugin-networking-multipeer" spec="^1.1.0" />
     <allow-navigation href="http://192.168.47.114:8100" sessionid="8df08132" />
-    <plugin name="cordova-plugin-webserver" spec="https://github.com/bykof/cordova-plugin-webserver" />
     <engine name="android" spec="7.0.0" />
+    <plugin name="cordova-plugin-webserver" spec="https://github.com/bykof/cordova-plugin-webserver" />
 </widget>
