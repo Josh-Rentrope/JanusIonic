@@ -103,6 +103,6 @@
     <plugin name="cordova-plugin-dbmeter" spec="^2.1.0" />
     <plugin name="cordova-plugin-networking-multipeer" spec="^1.1.0" />
     <allow-navigation href="http://192.168.47.114:8100" sessionid="8df08132" />
-    <engine name="android" spec="7.0.0" />
     <plugin name="cordova-plugin-webserver" spec="https://github.com/bykof/cordova-plugin-webserver" />
+    <engine name="android" spec="7.0.0" />
 </widget>
