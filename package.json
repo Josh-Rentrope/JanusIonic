@@ -36,6 +36,7 @@
     "@types/node": "^10.12.0",
     "angularfire2": "5.0.0-rc.4",
     "anymesh": "^0.4.0",
+    "bonjour": "^3.5.0",
     "chart.js": "^2.7.2",
     "cordova-android": "7.0.0",
     "cordova-plugin-add-swift-support": "^1.7.2",

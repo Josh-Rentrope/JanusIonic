@@ -4,6 +4,7 @@ import { Platform } from 'ionic-angular';
 
 
 import { Zeroconf } from '@ionic-native/zeroconf';
+//import Bonjour from 'bonjour'
 /*
   Generated class for the NetworkManagerProvider provider.
 
@@ -32,6 +33,7 @@ export class NetworkManagerProvider {
 		  	}
 			 
 			//console.log('service removed', result.service);
+			//console.log(that);
 		  }else {
 			console.log(result.action);
 			console.log('service removed', result.service);
@@ -39,7 +41,7 @@ export class NetworkManagerProvider {
 		});
 
 		// publish a zeroconf service of your own
-		this.zeroconf.register('_http._tcp.', 'local.', 'Janus Android Node', 80, {
+		this.zeroconf.register('_http._tcp.', 'local.', 'Janus Android Node', 7995, {
 		  'Group': ''
 		}).then(result => {
 		  console.log('Service registered', result.service);
@@ -116,14 +118,24 @@ export class NetworkManagerProvider {
     headers.append("Accept", 'application/json');
     headers.append('Content-Type', 'application/json' );
     //const requestOptions = new HttpHeaders({ headers: headers });
-
-    this.http.post("http://192.168.47.110:7995/Ingest/", postData, { headers: headers })
+	let that = this ;
+	Object.keys(this.peers).forEach(function(key) {
+		if(key.includes("Django") && that.peers[key].ipv4Addresses != []){
+		  that.http.post("http://"+that.peers[key].ipv4Addresses[0]+":7995/Ingest/", postData, { headers: headers })
+		  .subscribe(data => {
+			console.log(data['_body']);
+		   }, error => {
+			  console.log(error);
+			//delete(that.peers[key]);
+		  });
+		}else if(key.includes("Django") && that.peers[key].ipv4Addresses.length == 0){
+			
+			delete(that.peers[key]);
+			
+		}
+		//console.log(, );
+	});
     
-      .subscribe(data => {
-        console.log(data['_body']);
-       }, error => {
-        console.log(error);
-      });
   }
 
 }

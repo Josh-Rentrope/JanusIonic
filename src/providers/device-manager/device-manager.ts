@@ -81,13 +81,13 @@ export class DeviceManagerProvider {
               private accelerationSensor: DeviceMotion,
               private geolocation: Geolocation,
               private dbMeter: DBMeter,
-              private networkManager: NetworkManagerProvider
+              public networkManager: NetworkManagerProvider
               ) {
 	networkManager.deviceData = this;
 	
 	
     setInterval(() => { 
-       //this.SendDataOverNetwork(); // Now the "this" still references the component
+       this.SendDataOverNetwork(); // Now the "this" still references the component
     }, 10000);
   }
   UpdateSensors(){
@@ -107,6 +107,17 @@ export class DeviceManagerProvider {
       this.SensorData.Sensors.Acceleration.Subscriber.unsubscribe();
       this.SensorData.Sensors.Acceleration.Subscriber = null;
     }
+    if(this.SensorData.Enabled && this.SensorData.Sensors.GPS.Enabled && !this.SensorData.Sensors.GPS.Subscriber){
+      this.SensorData.Sensors.GPS.Subscriber = this.geolocation.watchPosition().subscribe((data) => {
+        that.SensorData.Sensors.GPS.LastData = data;
+        that.SensorData.Sensors.GPS.NewData.push(data);
+        //console.log(that.SensorData.Sensors.Acceleration.LastData);
+      });
+    }
+    else if(this.SensorData.Sensors.GPS.Subscriber && (!this.SensorData.Enabled || !this.SensorData.Sensors.GPS.Enabled)){
+      this.SensorData.Sensors.GPS.Subscriber.unsubscribe();
+      this.SensorData.Sensors.GPS.Subscriber = null;
+    }
   }
   ToggleDataCollection(){
     //console.log("Hello");
@@ -115,10 +126,13 @@ export class DeviceManagerProvider {
   }
   SendDataOverNetwork(){
     this.networkManager.sendDataToServer({
-      "Acceleration":this.SensorData.Sensors.Acceleration.NewData
+      "Acceleration":this.SensorData.Sensors.Acceleration.NewData,
+      "GPS":this.SensorData.Sensors.GPS.NewData,
     });
     this.SensorData.Sensors.Acceleration.Data = this.SensorData.Sensors.Acceleration.Data.concat(this.SensorData.Sensors.Acceleration.NewData);
     this.SensorData.Sensors.Acceleration.NewData = [];
+    this.SensorData.Sensors.GPS.Data = this.SensorData.Sensors.GPS.Data.concat(this.SensorData.Sensors.GPS.NewData);
+    this.SensorData.Sensors.GPS.NewData = [];
     
   }
   

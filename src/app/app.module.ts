@@ -13,6 +13,8 @@ import { AppSettings } from '../services/app-settings'
 import { ToastService } from '../services/toast-service'
 import { LoadingService } from '../services/loading-service'
 
+import { MapToIterablePipe } from '../pipes/map-to-iterable/map-to-iterable'
+
 import { Sensors } from '@ionic-native/sensors';
 import { DeviceMotion, DeviceMotionAccelerationData } from '@ionic-native/device-motion';
 import { Geolocation } from '@ionic-native/geolocation';
@@ -28,7 +30,11 @@ import { NetworkManagerProvider } from '../providers/network-manager/network-man
 import { ReportsProvider } from '../providers/reports/reports';
 
 @NgModule({
-  declarations: [MyApp],
+  declarations: [
+	  MyApp,
+	  MapToIterablePipe
+	  
+  ],
   providers: [
     StatusBar, SplashScreen,
     ToastService, LoadingService,
