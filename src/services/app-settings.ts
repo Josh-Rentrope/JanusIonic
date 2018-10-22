@@ -2,10 +2,10 @@ export const AppSettings = Object.freeze({
     "IS_FIREBASE_ENABLED": false,
     "SHOW_START_WIZARD": true,
     "SUBSCRIBE": true,
-    "BUY_BUTTON": true,
+    "BUY_BUTTON": false,
     "TOAST": {
       "duration": 1000,
-      "position": "buttom"
+      "position": "bottom"
     },
     "FIREBASE_CONFIG": {
         "apiKey": "AIzaSyCYOVrRscQ26G5lAmOSfwrBFncNidaCSOE",

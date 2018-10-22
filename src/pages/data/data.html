@@ -14,22 +14,29 @@
 
 
 <ion-content padding>
-  <ion-card>
-    <ion-card-header>
-      Acceleration
-    </ion-card-header>
-    <ion-card-content>
-      <!--<canvas baseChart #accelerationCanvas
-                  [datasets]="lineChartData"
-                  [labels]="lineChartLabels"
-                  [options]="lineChartOptions"
-                  [colors]="lineChartColors"
-                  [legend]="lineChartLegend"
-                  [chartType]="lineChartType"
-                  (chartHover)="chartHovered($event)"
-                  (chartClick)="chartClicked($event)"></canvas> -->
-    </ion-card-content>
-  </ion-card>
-  
-    <button (click)="randomize()">Update</button>
+  <ion-list>
+      <ion-list-header header-section no-margin>
+        <!-- Header-title -->
+		<h1>Recent Records</h1>
+      </ion-list-header>
+	  
+      <ion-item no-lines *ngFor="let incident of this.device.SensorData.Incidents">
+        <!-- Item-title -->
+        <ion-label item-title padding-top>Incident ({{incident.timestamp}})</ion-label>
+        <!-- Toggle -->
+        
+      </ion-item>
+	  <ion-list-header header-section no-margin>
+        <!-- Header-title -->
+		<h1>Incident Archives</h1>
+      </ion-list-header>
+	  
+      <ion-item no-lines *ngFor="let archive of this.device.Archives">
+        <!-- Item-title -->
+        <ion-label item-title no-padding>{{archive.name}}</ion-label>
+        <!-- Toggle -->
+        
+      </ion-item>
+       
+    </ion-list>
 </ion-content>

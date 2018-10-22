@@ -6,6 +6,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { MenuService } from '../services/menu-service';
 import { AppSettings } from '../services/app-settings';
+import { SettingsProvider } from '../providers/settings/settings';
 
 import { IService } from '../services/IService';
 
@@ -28,7 +29,8 @@ export class MyApp {
         private statusBar: StatusBar,
         public menu: MenuController,
         private menuService: MenuService,
-        public modalCtrl: ModalController) {
+        public modalCtrl: ModalController,
+		public settings: SettingsProvider) {
         this.initializeApp();
 
         this.pages = menuService.getAllThemes();
@@ -36,9 +38,13 @@ export class MyApp {
         this.menuService.load(null).subscribe( snapshot => {
             this.params = snapshot;
         });
-        if (AppSettings.SHOW_START_WIZARD) {
-          this.presentProfileModal();
-        }
+		
+        settings.get("Intro").then((data) => {
+			if(!data){
+          		this.presentProfileModal();
+				settings.set("Intro", "Shown");
+			} 
+        }); 
     }
 
     presentProfileModal() {

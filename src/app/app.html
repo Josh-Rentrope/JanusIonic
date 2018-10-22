@@ -10,11 +10,13 @@
         <!-- Menu Main List -->
         <ion-content main-menu>
             <ion-list no-margin no-padding>
+				<h4  item-title class="text-white">ID: {{settings.ID}}</h4>
                 <button menuClose ion-item paddinge-left no-lines item-title *ngFor="let p of pages" (click)="openPage(p)">
                   <ion-icon icon-small item-left>
                     <i class="icon {{p.icon}}"></i>
                   </ion-icon>
                   {{p.title}}
+				
                 </button>
             </ion-list>
         </ion-content>

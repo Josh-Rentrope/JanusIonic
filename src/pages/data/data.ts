@@ -2,6 +2,8 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 import { Chart } from 'chart.js';
+
+import { DeviceManagerProvider } from '../../providers/device-manager/device-manager';
 /**
  * Generated class for the DataPage page.
  *
@@ -16,7 +18,8 @@ import { Chart } from 'chart.js';
 })
 export class DataPage {
   
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams,
+              public device: DeviceManagerProvider) {
   }
 
   ionViewDidLoad() {

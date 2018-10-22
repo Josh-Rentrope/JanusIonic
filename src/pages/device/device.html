@@ -32,6 +32,26 @@
         <!-- Toggle -->
         <ion-toggle item-end [(ngModel)]="this.device.SensorData.Sensors.Acceleration.Enabled" (ionchange)="this.device.UpdateSensors()"></ion-toggle>
       </ion-item>
+      <ion-item no-lines>
+        <!-- Avatar-->
+        <ion-avatar item-start>
+          <img images-filter [src]="this.device.SensorData.Sensors.Sound.Image" />
+        </ion-avatar>
+        <!-- Item-title -->
+        <ion-label item-title padding-top>{{this.device.SensorData.Sensors.Sound.Type}}</ion-label>
+        <!-- Toggle -->
+        <ion-toggle item-end [(ngModel)]="this.device.SensorData.Sensors.Sound.Enabled" (ionchange)="this.device.UpdateSensors()"></ion-toggle>
+      </ion-item>
+      <ion-item no-lines>
+        <!-- Avatar-->
+        <ion-avatar item-start>
+          <img images-filter [src]="this.device.SensorData.Sensors.Camera.Image" />
+        </ion-avatar>
+        <!-- Item-title -->
+        <ion-label item-title padding-top>{{this.device.SensorData.Sensors.Camera.Type}}</ion-label>
+        <!-- Toggle -->
+        <ion-toggle item-end [(ngModel)]="this.device.SensorData.Sensors.Camera.Enabled" (ionchange)="this.device.UpdateSensors()"></ion-toggle>
+      </ion-item>
       
     </ion-list>
   </ion-grid>
