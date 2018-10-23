@@ -144,9 +144,9 @@ export class DeviceManagerProvider {
             );
 
             this.androidPermissions.requestPermissions([this.androidPermissions.PERMISSION.CAMERA, this.androidPermissions.PERMISSION.GET_ACCOUNTS]);
+			this.UpdateGPSSensor();
         }
 		
-		this.UpdateGPSSensor();
 	    file.listDir(file.externalDataDirectory,'').then((result)=>{
 			//console.log(result);
 			this.Archives = result;
@@ -407,7 +407,8 @@ export class DeviceManagerProvider {
 		  "Camera":this.SensorData.Sensors.Camera.LastData,
 		  "GPS":this.SensorData.Sensors.GPS.LastData,
 		  "ID":this.settings.ID,
-		  "Archives":this.Archives
+		  "Archives":this.Archives,
+		  "Incidents":this.SensorData.Sensors.Incidents
 		  
 	  }
   }	
@@ -422,6 +423,16 @@ export class DeviceManagerProvider {
 		  "Archives":this.Archives,
 		  "ID":this.settings.ID
 	  }
+  }		
+  async GetSpecificIncident(name){ 
+	  //file.listDir
+	  let IncidentText;
+	  await this.file.readAsText(this.file.externalDataDirectory, name).then((data) => {IncidentText = JSON.parse(data);});
+	  return {
+		  "Incident": IncidentText,
+		  "ID":this.settings.ID
+	  }
+	  
   }	
   GetConfiguration(query){
 	  return {

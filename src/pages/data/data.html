@@ -31,7 +31,7 @@
 		<h1>Incident Archives</h1>
       </ion-list-header>
 	  
-      <ion-item no-lines *ngFor="let archive of this.device.Archives">
+      <ion-item *ngFor="let archive of this.device.Archives" (click)="openArchive(archive.name)"> 
         <!-- Item-title -->
         <ion-label item-title no-padding>{{archive.name}}</ion-label>
         <!-- Toggle -->

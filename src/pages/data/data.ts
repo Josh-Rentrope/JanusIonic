@@ -25,6 +25,13 @@ export class DataPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad DataPage');
   }
+  openArchive(archiveName){
+	  this.device.GetSpecificIncident(archiveName).then((data) => {
+		  //console.log(data);
+		  this.navCtrl.push('InspectorPage', data);
+	  });
+	  //console.log(this.device.GetSpecificIncident(archiveName));
+  }
   
 
 }

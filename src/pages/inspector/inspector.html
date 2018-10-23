@@ -1,0 +1,33 @@
+<!--
+  Generated template for the InspectorPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>inspector (ID: {{this.data.Incident.ID}})</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+	<ion-card>
+      <ion-card-header>
+        Motion Graph
+      </ion-card-header>
+      <ion-card-content>
+        <canvas #accelerationCanvas></canvas> 
+      </ion-card-content>
+    </ion-card>
+	<ion-card>
+      <ion-card-header>
+        Sound Graph
+      </ion-card-header>
+      <ion-card-content>
+        <canvas #soundCanvas></canvas>
+      </ion-card-content>
+    </ion-card>
+</ion-content>
