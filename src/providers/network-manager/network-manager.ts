@@ -42,6 +42,7 @@ export class NetworkManagerProvider {
 		  }
 		});
 
+		console.log(this.zeroconf);
 		// publish a zeroconf service of your own
 		this.zeroconf.register('_http._tcp.', 'local.', 'Janus Android Node', 7995, {
 		  'Group': ''
@@ -125,8 +126,12 @@ export class NetworkManagerProvider {
 				retDict.Data = this.deviceData.GetPriorData(query);
 				break;
 			case "GetIncident":
-				console.log("Getting Data");
+				//console.log("Getting Data");
 				await this.deviceData.GetSpecificIncident(query.incident).then((data) => {retDict.Data = data});
+				break;
+			case "EraseData":
+				//console.log("Getting Data");
+				await this.deviceData.EraseData(query).then((data) => {retDict.Data = data});
 				break;
 			default:
 				break

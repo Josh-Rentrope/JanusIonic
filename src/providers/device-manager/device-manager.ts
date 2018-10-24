@@ -72,6 +72,7 @@ export class DeviceManagerProvider {
         "LastData":null,
         "Image": "assets/images/symbols/Vibration.png",
         "UpdateRate":100, //milliseconds
+		"Threshold":0.1,
         "NewData":[],
         "Data":[],
 		"Magnitude":[],
@@ -84,6 +85,7 @@ export class DeviceManagerProvider {
         "LastData":null,
         "Image": "assets/images/symbols/Microphone.png",
         "UpdateRate":100, //milliseconds
+		"Threshold":10,
         "NewData":[],
         "Data":[],
 		"Magnitude":[],
@@ -182,6 +184,7 @@ export class DeviceManagerProvider {
   	this.file.writeFile(this.file.externalDataDirectory, data.ID+'.json', JSON.stringify(data), {replace: true})
 	 .then(() => {      
 	   console.log("Wrote to File", this.file.externalDataDirectory);
+		this.Archives.unshift({name: data.ID+'.json'});
 
 	 })
 	 .catch((err) => {
@@ -225,7 +228,7 @@ export class DeviceManagerProvider {
 	  this.SensorData.TriggerMonitor = setInterval(() => {
 		  //Checking the variancce in Last Value below threshold (english please)
 		  //console.log(this.SensorData.Sensors.Sound.LastData);
-		  if(this.SensorData.Sensors.Acceleration.LastData.variance < 0.1 && this.SensorData.Sensors.Sound.LastData.variance < 10){
+		  if((this.SensorData.Sensors.Acceleration.Enabled || this.SensorData.Sensors.Acceleration.LastData.variance < this.SensorData.Sensors.Acceleration.Threshold) && (!this.SensorData.Sensors.Sound.Enabled || this.SensorData.Sensors.Sound.LastData.variance < this.SensorData.Sensors.Sound.Threshold)){
 			 console.log("Incident Over",this.SensorData);
 			 clearInterval(this.SensorData.TriggerMonitor);
 			 this.SensorData.Triggered = false;
@@ -257,7 +260,7 @@ export class DeviceManagerProvider {
 		if(this.SensorData.Sensors.Acceleration.NewData.length>100){
 			this.SensorData.Sensors.Acceleration.Data.push(this.SensorData.Sensors.Acceleration.NewData.shift()); //Feed into Data
 			if(!this.SensorData.Triggered){
-			   if(newAcceleration.variance > 0.1){
+			   if(this.SensorData.Sensors.Acceleration.Enabled && newAcceleration.variance > this.SensorData.Sensors.Acceleration.threshold){
 				   this.createNewIncident();
 				   this.SensorData.Triggered = true;
 				   this.SensorData.LastIncident.Cause = "Acceleration";
@@ -316,7 +319,7 @@ export class DeviceManagerProvider {
 		if(this.SensorData.Sensors.Sound.NewData.length>100){
 			this.SensorData.Sensors.Sound.Data.push(this.SensorData.Sensors.Sound.NewData.shift()); //Feed into Data
 			if(!this.SensorData.Triggered){
-			   if(newValue.variance > 10){
+			   if(this.SensorData.Sensors.Sound.Enabled && newValue.variance > this.SensorData.Sensors.Sound.Threshold){
 				   this.createNewIncident();
 				   this.SensorData.Triggered = true;
 				   this.SensorData.LastIncident.Cause = "Sound";
@@ -412,8 +415,8 @@ export class DeviceManagerProvider {
 		  "GPS":this.SensorData.Sensors.GPS.LastData,
 		  "ID":this.settings.ID,
 		  "Archives":this.Archives,
-		  "Incidents":this.SensorData.Sensors.Incidents,
-		  "CurrentIncident":this.SensorData.Sensors.LastIncident,
+		  "Current":this.SensorData.LastIncident,
+		  "Incidents":this.SensorData.Incidents,
 		  "Configuration":this.GetConfiguration(query)
 		  
 	  }
@@ -434,6 +437,26 @@ export class DeviceManagerProvider {
 	  //file.listDir
 	  let IncidentText;
 	  await this.file.readAsText(this.file.externalDataDirectory, name).then((data) => {IncidentText = JSON.parse(data);});
+	  return {
+		  "Incident": IncidentText,
+		  "ID":this.settings.ID
+	  }
+	  
+  }	
+  async EraseData(query){ 
+	  //file.listDir
+	  let IncidentText;
+	  await this.file.listDir(this.file.externalDataDirectory,'').then((result)=>{
+			//console.log(result);
+			this.Archives = result;
+			//console.log(this); 
+			/*result will have an array of file objects with 
+			file details or if its a directory*/ 
+			  for(let file1 of result){
+				 this.file.removeFile(this.file.externalDataDirectory, file1.name); 
+			}
+		  	this.Archives = [];
+	  	});
 	  return {
 		  "Incident": IncidentText,
 		  "ID":this.settings.ID

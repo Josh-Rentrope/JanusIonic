@@ -7,7 +7,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>Data</ion-title>
+    <ion-title>Data 2</ion-title>
   </ion-navbar>
 
 </ion-header>
@@ -17,9 +17,12 @@
   <ion-list>
       <ion-list-header header-section no-margin>
         <!-- Header-title -->
-		<h1>Recent Records</h1>
+		<h1 >Recent Records</h1>
       </ion-list-header>
 	  
+      <ion-item no-lines *ngIf="this.device.SensorData.LastIncident">
+		  <h1 color="danger" style="color: white;">Recording Incident</h1>
+      </ion-item>
       <ion-item no-lines *ngFor="let incident of this.device.SensorData.Incidents">
         <!-- Item-title -->
         <ion-label item-title padding-top>Incident ({{incident.timestamp}})</ion-label>
@@ -37,6 +40,7 @@
         <!-- Toggle -->
         
       </ion-item>
+	  <button ion-button full large color="danger" (click)="this.device.EraseData()"> Clear Data</button>
        
     </ion-list>
 </ion-content>

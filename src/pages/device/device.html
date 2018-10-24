@@ -21,7 +21,12 @@
         <!-- Header-title -->
         <button ion-button full large *ngIf="!this.device.SensorData.Enabled" (click)="this.device.ToggleDataCollection()"> Start Device</button>
         <button ion-button full large *ngIf="this.device.SensorData.Enabled" color="danger" (click)="this.device.ToggleDataCollection()"> Stop Device</button>
+		  
+		  <ion-item no-lines *ngIf="this.device.SensorData.LastIncident">
+			  <h1 color="danger" style="color: white;">Recording Incident</h1>
+		  </ion-item>
       </ion-list-header>
+		
       <ion-item no-lines>
         <!-- Avatar-->
         <ion-avatar item-start>
