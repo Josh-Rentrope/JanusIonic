@@ -19,10 +19,6 @@ Clone this directory and `cd` into the directory
 
 Run `ionic cordova build android` to generate an apk or `ionic cordova run android` with a device connected.
 
-### Issues
-
-There are a few issues with setup that may occur, here is a small list of potential fixes
-
 ## Usage
 
 The App will start with an introductory screen. On the first panel of the app, you'll see "Recent Records" and "Incident Archives".
