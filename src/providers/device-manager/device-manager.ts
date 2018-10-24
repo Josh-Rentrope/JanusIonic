@@ -400,6 +400,10 @@ export class DeviceManagerProvider {
     this.SensorData.Enabled = !this.SensorData.Enabled;
     this.UpdateSensors();
   }	
+  ToggleDevice(deviceName){
+	  this.SensorData.Sensors[deviceName].Enabled = !this.SensorData.Sensors[deviceName].Enabled;
+	  this.UpdateSensors();
+  }
   GetPriorData(query){
 	  return {
 		  "Acceleration":this.SensorData.Sensors.Acceleration.NewData,
@@ -408,7 +412,9 @@ export class DeviceManagerProvider {
 		  "GPS":this.SensorData.Sensors.GPS.LastData,
 		  "ID":this.settings.ID,
 		  "Archives":this.Archives,
-		  "Incidents":this.SensorData.Sensors.Incidents
+		  "Incidents":this.SensorData.Sensors.Incidents,
+		  "CurrentIncident":this.SensorData.Sensors.LastIncident,
+		  "Configuration":this.GetConfiguration(query)
 		  
 	  }
   }	
@@ -436,10 +442,10 @@ export class DeviceManagerProvider {
   }	
   GetConfiguration(query){
 	  return {
+		  "Enabled":this.SensorData.Sensors.Enabled,
 		  "Acceleration":this.SensorData.Sensors.Acceleration.Enabled,
 		  "Sound":this.SensorData.Sensors.Sound.Enabled,
 		  "Camera":this.SensorData.Sensors.Camera.Enabled,
-		  "GPS":this.SensorData.Sensors.GPS.Enabled,
 		  "ID":this.settings.ID
 	  }
   }

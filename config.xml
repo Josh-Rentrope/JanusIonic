@@ -3,7 +3,7 @@
     <name>Janus Android Sensor</name>
     <description>This is a generic Android Sensor configured to work with Janus</description>
     <author email="contact@infodao.com" href="http://www.infodao.com/">Infodao</author>
-    <content original-src="index.html" src="http://192.168.47.114:8100" />
+    <content src="index.html" />
     <access origin="*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
