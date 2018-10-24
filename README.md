@@ -1,6 +1,6 @@
 # JanusIonic
 This is a repository for Janus Ionic app, which runs on android phones
-This installation is primarily for linux, but windows may work as well. You can also just use the included apk.
+This installation is primarily for linux, but windows may work as well. You can also just use the included apk. [Introductory Video](https://www.youtube.com/watch?v=bqdwI5zOTiA)
 
 ## Installation
 First, set up Android Studio and the sdk manager. Here are instructions for [Linux](https://medium.com/@aashimad1/install-android-studio-in-ubuntu-b8aed675849f)
